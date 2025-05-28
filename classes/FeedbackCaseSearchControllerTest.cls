@@ -16,7 +16,7 @@ public with sharing class FeedbackCaseSearchControllerTest {
         Case c = [SELECT Id, CaseNumber FROM Case LIMIT 1];
 
         Test.startTest();
-        List<FeedbackCaseSearchController.FeedbackWrapper> feedbackWrapperList = FeedbackCaseSearchController.searchFeedbacks(c.CaseNumber);
+        List<FeedbackWrapper> feedbackWrapperList = FeedbackCaseSearchController.searchFeedbacks(c.CaseNumber);
         Test.stopTest();
 
         Assert.areEqual(1, feedbackWrapperList.size(), 'Only 1 feedback should have been present in the list');
@@ -28,7 +28,7 @@ public with sharing class FeedbackCaseSearchControllerTest {
         String invalidCaseNumber = '912332';
         Test.startTest();
         try{
-            List<FeedbackCaseSearchController.FeedbackWrapper> feedbackWrapperList = FeedbackCaseSearchController.searchFeedbacks(invalidCaseNumber);
+            List<FeedbackWrapper> feedbackWrapperList = FeedbackCaseSearchController.searchFeedbacks(invalidCaseNumber);
         }
         catch(AuraHandledException ex){
             System.debug(ex.getMessage());
@@ -42,7 +42,7 @@ public with sharing class FeedbackCaseSearchControllerTest {
         
         Test.startTest();
         try{
-            List<FeedbackCaseSearchController.FeedbackWrapper> feedbackWrapperList = FeedbackCaseSearchController.searchFeedbacks(null);
+            List<FeedbackWrapper> feedbackWrapperList = FeedbackCaseSearchController.searchFeedbacks(null);
         }
         catch(AuraHandledException ex){
             System.debug(ex.getMessage());
