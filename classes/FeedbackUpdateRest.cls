@@ -1,6 +1,17 @@
-@RestResource(urlMapping='/FeedbackUpdate/*')
+/*
+*   This class contains the functionality when HTTP request is sent by an external system to update a particular Feedback record.
+*   The class is annotated with @RestResource to expose this class as Rest API.
+*   @author Abhisek Prusty
+*/
+
+@RestResource(urlMapping='/v1/FeedbackUpdate/*')
 global with sharing class FeedbackUpdateRest {
     
+    /*
+    This method contains the functionality of updating a Feedback request when a PATCH request is received.
+    @param String requestBody - JSON request body containing the Case Number, Rating and Comments.
+    @return String - Response message.
+    */
     @HttpPatch
     global static String updateFeedback() {
         RestRequest req = RestContext.request;
@@ -13,8 +24,10 @@ global with sharing class FeedbackUpdateRest {
             return 'Invalid Case Number';
         }
 
+        Savepoint sp = Database.setSavepoint();
+
         try{
-            Feedback__c feedbackObj = [Select Id, Rating__c, Comments__c, Submitted__c from Feedback__c where Case__r.CaseNumber =: feedbackData.caseNumber ORDER BY CreatedDate DESC LIMIT 1];
+            Feedback__c feedbackObj = [SELECT Id, Rating__c, Comments__c, Submitted__c FROM Feedback__c WHERE Case__r.CaseNumber =: feedbackData.caseNumber ORDER BY CreatedDate DESC LIMIT 1];
             if(feedbackObj.Submitted__c){
                 res.statusCode = 400;
                 return 'Feedback already submitted';
@@ -26,7 +39,11 @@ global with sharing class FeedbackUpdateRest {
 
             update feedbackObj;
         }
+        
         catch(Exception e){
+
+            Database.rollback(sp);
+            
             res.statusCode = 500;
             return 'Bad request';
         }
@@ -34,9 +51,4 @@ global with sharing class FeedbackUpdateRest {
         return 'Feedback updated successfully';
     }
 
-    global class FeedbackWrapper{
-        public String caseNumber;
-        public String rating;
-        public String comments;
-    }
 }
