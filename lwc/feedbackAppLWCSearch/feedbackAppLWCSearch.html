@@ -8,7 +8,7 @@
             <div class="slds-text-color_error">{error}</div>
         </template>
         <template if:true={showTable}>
-            <lightning-datatable key-field="caseNumber" data={data} columns={columns} sorted-by={sortedBy} sorted-direction={sortedDirection} onsort={handleSort} hide-checkbox-column="true">
+            <lightning-datatable key-field="feedbackId" data={data} columns={columns} sorted-by={sortedBy} sorted-direction={sortedDirection} onsort={handleSort} hide-checkbox-column="true" show-row-number-column>
             </lightning-datatable>
         </template>
     </lightning-card>

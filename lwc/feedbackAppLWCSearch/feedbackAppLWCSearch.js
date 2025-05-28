@@ -1,16 +1,15 @@
 import { LightningElement, track } from 'lwc';
-import searchFeedbacks from '@salesforce/apex/FeedbackCaseLWCSearchController.searchFeedbacks';
+import searchFeedbacks from '@salesforce/apex/FeedbackCaseSearchController.searchFeedbacks';
 
 export default class FeedbackAppLWCSearch extends LightningElement {
     @track data = [];
-    @track error;
-    @track sortedBy = 'caseNumber';
-    @track sortDirection = 'asc';
+    error;
+    sortedBy = 'caseNumber';
+    sortDirection = 'asc';
 
     columns = [
-        {label: '#', fieldName: 'rowNumber', type: 'number', initialWidth: 50},
         {label: 'Feedback Number', fieldName: 'feedbackUrl', type: 'url', typeAttributes: {label: {fieldName: 'feedbackNumber'}, target: '_blank'}, sortable: false},
-        {label: 'Case Number', fieldName: 'caseNumber', type: 'text', sortable: true},
+        {label: 'Case Number', fieldName: 'caseNumber', type: 'text', sortable: false},
         {label: 'Rating', fieldName:'rating', type: 'text', sortable: true},
         {label: 'Comments', fieldName:'comments', type: 'text'},
         {label: 'Submitted Date', fieldName:'submittedDate', type: 'date', sortable: true}
@@ -30,10 +29,9 @@ export default class FeedbackAppLWCSearch extends LightningElement {
         this.error = undefined;
         searchFeedbacks({caseNumber: caseNumber})
         .then(result => {
-            this.data = result.map((record, index) => ({...record, rowNumber: index + 1, feedbackNumber: record.name, feedbackUrl: '/' + record.Id}));
+            this.data = result.map((record) => ({...record, feedbackNumber: record.feedbackName, feedbackUrl: '/' + record.feedbackId}));
             this.error = undefined;
-            console.log('DATA  ', this.data);
-            console.log(this.columns);
+            
         })
         .catch(error => {
             this.error = error.body ? error.body.message : 'Unknown error';
