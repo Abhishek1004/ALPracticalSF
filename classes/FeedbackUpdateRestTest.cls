@@ -12,7 +12,7 @@ public with sharing class FeedbackUpdateRestTest {
     @isTest
     static void testFeedbackUpdateRestSuccessful(){
 
-        Case c = [select Id, CaseNumber from Case LIMIT 1];
+        Case c = [SELECT Id, CaseNumber FROM Case LIMIT 1];
         String ratingStr = '5';
         String commentsStr = 'Good Support';
 
@@ -23,7 +23,7 @@ public with sharing class FeedbackUpdateRestTest {
         });
 
         RestRequest req = new RestRequest();
-        req.requestURI = '/services/apexrest/FeedbackUpdate/';
+        req.requestURI = '/services/apexrest/v1/FeedbackUpdate/';
         req.httpMethod = 'PATCH';
         req.requestBody = Blob.valueOf(requestBody);
 
@@ -34,11 +34,11 @@ public with sharing class FeedbackUpdateRestTest {
         String result = FeedbackUpdateRest.updateFeedback();
         Test.stopTest();
 
-        Feedback__c fb = [select Id, Rating__c, Comments__c, Submitted__c from Feedback__c where Case__c =: c.Id LIMIT 1];
-        System.assertEquals('Feedback updated successfully', result, 'Feedback did not update');
-        System.assertEquals(ratingStr, fb.Rating__c, 'Feedback rating did not update');
-        System.assertEquals(commentsStr, fb.Comments__c, 'Feedback comments did not update');
-        System.assertEquals(true, fb.Submitted__c, 'Feedback submit field did not update');
+        Feedback__c fb = [SELECT Id, Rating__c, Comments__c, Submitted__c FROM Feedback__c WHERE Case__c =: c.Id LIMIT 1];
+        Assert.areEqual('Feedback updated successfully', result, 'Feedback did not update');
+        Assert.areEqual(ratingStr, fb.Rating__c, 'Feedback rating did not update');
+        Assert.areEqual(commentsStr, fb.Comments__c, 'Feedback comments did not update');
+        Assert.areEqual(true, fb.Submitted__c, 'Feedback submit field did not update');
         
     }
 
@@ -55,7 +55,7 @@ public with sharing class FeedbackUpdateRestTest {
         });
 
         RestRequest req = new RestRequest();
-        req.requestURI = '/services/apexrest/FeedbackUpdate/';
+        req.requestURI = '/services/apexrest/v1/FeedbackUpdate/';
         req.httpMethod = 'PATCH';
         req.requestBody = Blob.valueOf(requestBody);
 
@@ -66,7 +66,7 @@ public with sharing class FeedbackUpdateRestTest {
         String result = FeedbackUpdateRest.updateFeedback();
         Test.stopTest();
 
-        System.assertEquals('Bad request', result, 'Case should not exist');
+        Assert.areEqual('Bad request', result, 'Case should not exist');
 
     }
 
@@ -83,7 +83,7 @@ public with sharing class FeedbackUpdateRestTest {
         });
 
         RestRequest req = new RestRequest();
-        req.requestURI = '/services/apexrest/FeedbackUpdate/';
+        req.requestURI = '/services/apexrest/v1/FeedbackUpdate/';
         req.httpMethod = 'PATCH';
         req.requestBody = Blob.valueOf(requestBody);
 
@@ -94,14 +94,14 @@ public with sharing class FeedbackUpdateRestTest {
         String result = FeedbackUpdateRest.updateFeedback();
         Test.stopTest();
 
-        System.assertEquals('Invalid Case Number', result, 'Case should not exist');
+        Assert.areEqual('Invalid Case Number', result, 'Case should not exist');
 
     }
 
     @isTest
     static void testFeedbackUpdateRestResubmittedFeedback(){
 
-        Case c = [select Id, CaseNumber from Case LIMIT 1];
+        Case c = [SELECT Id, CaseNumber FROM Case LIMIT 1];
         String ratingStr = '5';
         String commentsStr = 'Good Support';
 
@@ -112,7 +112,7 @@ public with sharing class FeedbackUpdateRestTest {
         });
 
         RestRequest req = new RestRequest();
-        req.requestURI = '/services/apexrest/FeedbackUpdate/';
+        req.requestURI = '/services/apexrest/v1/FeedbackUpdate/';
         req.httpMethod = 'PATCH';
         req.requestBody = Blob.valueOf(requestBody);
 
@@ -125,7 +125,7 @@ public with sharing class FeedbackUpdateRestTest {
         Test.stopTest();
 
         
-        System.assertEquals('Feedback already submitted', result2, 'Feedback should not be updated');
+        Assert.areEqual('Feedback already submitted', result2, 'Feedback should not be updated');
         
     }
 

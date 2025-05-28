@@ -9,15 +9,31 @@ public with sharing class CaseAfterUpdateHandlerTest {
     }
 
     @isTest
-    static void testCaseFeedbackCreation(){
-        Case c = [select Id, Status from Case LIMIT 1];
+    static void testCaseFeedbackCreationPositive(){
+        Case c = [SELECT Id, Status FROM Case LIMIT 1];
         c.Status = 'Closed';
         
         Test.startTest();
         update c;
         Test.stopTest();
 
-        List<Feedback__c> feedbackList = [select Id from Feedback__c where Case__c =: c.Id];
-        System.assertEquals(1, feedbackList.size(), 'Case updated to Closed but Feedback not created');
+        List<Feedback__c> feedbackList = [SELECT Id FROM Feedback__c WHERE Case__c =: c.Id];
+        Assert.areEqual(1, feedbackList.size(), 'Case updated to Closed but Feedback not created');
+    }
+
+    @isTest
+    static void testCaseFeedbackCreationNegative(){
+
+        Case c = [SELECT Id, Status FROM Case LIMIT 1];
+        c.Status = 'Working';
+
+
+        Test.startTest();
+        update c;
+        Test.stopTest();
+
+        List<Feedback__c> feedbackList = [SELECT Id FROM Feedback__c WHERE Case__c =: c.Id];
+        Assert.areEqual(0, feedbackList.size(), 'Feedback should not be created for this case status');
+
     }
 }
