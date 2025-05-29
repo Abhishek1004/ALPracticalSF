@@ -1,7 +1,8 @@
 import { LightningElement, track } from 'lwc';
 import searchFeedbacks from '@salesforce/apex/FeedbackCaseSearchController.searchFeedbacks';
 
-export default class FeedbackAppLWCSearch extends LightningElement {
+export default class FeedbackSearch extends LightningElement {
+
     @track data = [];
     error;
     sortedBy = 'caseNumber';
@@ -64,5 +65,4 @@ export default class FeedbackAppLWCSearch extends LightningElement {
     get showTable(){
         return Array.isArray(this.data) && this.data.length > 0 && Array.isArray(this.columns) && this.columns.length > 0;
     }
-
 }
