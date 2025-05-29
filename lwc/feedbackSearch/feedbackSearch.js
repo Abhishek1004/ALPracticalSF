@@ -17,7 +17,7 @@ export default class FeedbackSearch extends LightningElement {
     ];
 
 
-    handleSearch(){
+    async handleSearch(){
         const inputCS = this.template.querySelector('.case-number-input');
         const caseNumber = inputCS ? inputCS.value.trim() : '';
 
@@ -28,16 +28,14 @@ export default class FeedbackSearch extends LightningElement {
         }
 
         this.error = undefined;
-        searchFeedbacks({caseNumber: caseNumber})
-        .then(result => {
+        try{
+            const result = await searchFeedbacks({caseNumber: caseNumber});
             this.data = result.map((record) => ({...record, feedbackNumber: record.feedbackName, feedbackUrl: '/' + record.feedbackId}));
             this.error = undefined;
-            
-        })
-        .catch(error => {
+        }
+        catch(error){
             this.error = error.body ? error.body.message : 'Unknown error';
-        });
-
+        }
     }
 
     handleSort(event){
