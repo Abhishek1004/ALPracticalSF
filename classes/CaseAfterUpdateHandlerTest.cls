@@ -1,15 +1,15 @@
 @IsTest
-public with sharing class CaseAfterUpdateHandlerTest {
+private class CaseAfterUpdateHandlerTest {
     
     @TestSetup
-    static void makeData(){
+    private static void makeData(){
         Case c = new Case(Status = 'New', Origin = 'Web');
         insert c;
     
     }
 
     @IsTest
-    static void testCaseFeedbackCreationPositive(){
+    private static void testCaseFeedbackCreationPositive(){
         Case c = [SELECT Id, Status FROM Case LIMIT 1];
         c.Status = 'Closed';
         
@@ -22,7 +22,7 @@ public with sharing class CaseAfterUpdateHandlerTest {
     }
 
     @IsTest
-    static void testCaseFeedbackCreationNegative(){
+    private static void testCaseFeedbackCreationNegative(){
 
         Case c = [SELECT Id, Status FROM Case LIMIT 1];
         c.Status = 'Working';

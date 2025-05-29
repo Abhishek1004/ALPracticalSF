@@ -1,8 +1,8 @@
 @IsTest
-public with sharing class FeedbackCaseSearchControllerTest {
+private with sharing class FeedbackCaseSearchControllerTest {
     
     @testSetup
-    static void makeData(){
+    private static void makeData(){
         Case c = new Case(Status = 'New', Origin = 'Web');
         insert c;
         c.Status = 'Closed';
@@ -10,7 +10,7 @@ public with sharing class FeedbackCaseSearchControllerTest {
     }
 
     @IsTest
-    static void testFeedbackCaseLWCrecordRetrieval(){
+    private static void testFeedbackCaseLWCrecordRetrieval(){
 
 
         Case c = [SELECT Id, CaseNumber FROM Case LIMIT 1];
@@ -23,7 +23,7 @@ public with sharing class FeedbackCaseSearchControllerTest {
     }
     
     @IsTest
-    static void testFeedbackCaseLWCnoRecords(){
+    private static void testFeedbackCaseLWCnoRecords(){
         
         String invalidCaseNumber = '912332';
         Test.startTest();
@@ -38,7 +38,7 @@ public with sharing class FeedbackCaseSearchControllerTest {
     }
     
     @IsTest
-    static void testFeedbackCaseLWCnoRecordsNullCheck(){
+    private static void testFeedbackCaseLWCnoRecordsNullCheck(){
         
         Test.startTest();
         try{

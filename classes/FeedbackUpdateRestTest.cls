@@ -1,8 +1,8 @@
 @IsTest
-public with sharing class FeedbackUpdateRestTest {
+private with sharing class FeedbackUpdateRestTest {
     
     @TestSetup
-    static void makeData(){
+    private static void makeData(){
         Case c = new Case(Status = 'New', Origin = 'Web');
         insert c;
         c.Status = 'Closed';
@@ -10,7 +10,7 @@ public with sharing class FeedbackUpdateRestTest {
     }
 
     @IsTest
-    static void testFeedbackUpdateRestSuccessful(){
+    private static void testFeedbackUpdateRestSuccessful(){
 
         Case c = [SELECT Id, CaseNumber FROM Case LIMIT 1];
         String ratingStr = '5';
@@ -43,7 +43,7 @@ public with sharing class FeedbackUpdateRestTest {
     }
 
     @IsTest
-    static void testFeedbackUpdateRestCaseNotFound(){
+    private static void testFeedbackUpdateRestCaseNotFound(){
         
         String ratingStr = '5';
         String commentsStr = 'Good Support';
@@ -71,7 +71,7 @@ public with sharing class FeedbackUpdateRestTest {
     }
 
     @IsTest
-    static void testFeedbackUpdateRestCaseNumberBlank(){
+    private static void testFeedbackUpdateRestCaseNumberBlank(){
         
         String ratingStr = '5';
         String commentsStr = 'Good Support';
@@ -99,7 +99,7 @@ public with sharing class FeedbackUpdateRestTest {
     }
 
     @IsTest
-    static void testFeedbackUpdateRestResubmittedFeedback(){
+    private static void testFeedbackUpdateRestResubmittedFeedback(){
 
         Case c = [SELECT Id, CaseNumber FROM Case LIMIT 1];
         String ratingStr = '5';

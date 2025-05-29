@@ -1,8 +1,8 @@
 @IsTest
-public with sharing class FeedbackBeforeUpdateHandlerTest {
+private with sharing class FeedbackBeforeUpdateHandlerTest {
     
     @TestSetup
-    static void makeData(){
+    private static void makeData(){
         
         Case c = new Case(Origin = 'Web', Status = 'New');
         insert c;
@@ -11,7 +11,7 @@ public with sharing class FeedbackBeforeUpdateHandlerTest {
     }
 
     @IsTest
-    static void testFeedbackSubmission(){
+    private static void testFeedbackSubmission(){
 
         Case c = [SELECT Id, Status FROM Case LIMIT 1];
         Feedback__c fb = [SELECT Id, Submitted__c, Submitted_Date__c FROM Feedback__c WHERE Case__c =: c.Id LIMIT 1];
