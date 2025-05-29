@@ -1,4 +1,4 @@
-@isTest
+@IsTest
 public with sharing class FeedbackCaseSearchControllerTest {
     
     @testSetup
@@ -9,7 +9,7 @@ public with sharing class FeedbackCaseSearchControllerTest {
         update c;
     }
 
-    @isTest
+    @IsTest
     static void testFeedbackCaseLWCrecordRetrieval(){
 
 
@@ -22,7 +22,7 @@ public with sharing class FeedbackCaseSearchControllerTest {
         Assert.areEqual(1, feedbackWrapperList.size(), 'Only 1 feedback should have been present in the list');
     }
     
-    @isTest
+    @IsTest
     static void testFeedbackCaseLWCnoRecords(){
         
         String invalidCaseNumber = '912332';
@@ -37,7 +37,7 @@ public with sharing class FeedbackCaseSearchControllerTest {
         Test.stopTest();
     }
     
-    @isTest
+    @IsTest
     static void testFeedbackCaseLWCnoRecordsNullCheck(){
         
         Test.startTest();

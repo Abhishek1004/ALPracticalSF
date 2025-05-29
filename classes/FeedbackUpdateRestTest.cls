@@ -1,4 +1,4 @@
-@isTest
+@IsTest
 public with sharing class FeedbackUpdateRestTest {
     
     @TestSetup
@@ -9,7 +9,7 @@ public with sharing class FeedbackUpdateRestTest {
         update c;
     }
 
-    @isTest
+    @IsTest
     static void testFeedbackUpdateRestSuccessful(){
 
         Case c = [SELECT Id, CaseNumber FROM Case LIMIT 1];
@@ -42,7 +42,7 @@ public with sharing class FeedbackUpdateRestTest {
         
     }
 
-    @isTest
+    @IsTest
     static void testFeedbackUpdateRestCaseNotFound(){
         
         String ratingStr = '5';
@@ -70,7 +70,7 @@ public with sharing class FeedbackUpdateRestTest {
 
     }
 
-    @isTest
+    @IsTest
     static void testFeedbackUpdateRestCaseNumberBlank(){
         
         String ratingStr = '5';
@@ -98,7 +98,7 @@ public with sharing class FeedbackUpdateRestTest {
 
     }
 
-    @isTest
+    @IsTest
     static void testFeedbackUpdateRestResubmittedFeedback(){
 
         Case c = [SELECT Id, CaseNumber FROM Case LIMIT 1];

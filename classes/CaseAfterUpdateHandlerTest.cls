@@ -1,4 +1,4 @@
-@isTest
+@IsTest
 public with sharing class CaseAfterUpdateHandlerTest {
     
     @TestSetup
@@ -8,7 +8,7 @@ public with sharing class CaseAfterUpdateHandlerTest {
     
     }
 
-    @isTest
+    @IsTest
     static void testCaseFeedbackCreationPositive(){
         Case c = [SELECT Id, Status FROM Case LIMIT 1];
         c.Status = 'Closed';
@@ -21,7 +21,7 @@ public with sharing class CaseAfterUpdateHandlerTest {
         Assert.areEqual(1, feedbackList.size(), 'Case updated to Closed but Feedback not created');
     }
 
-    @isTest
+    @IsTest
     static void testCaseFeedbackCreationNegative(){
 
         Case c = [SELECT Id, Status FROM Case LIMIT 1];

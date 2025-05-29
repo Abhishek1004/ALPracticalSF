@@ -1,4 +1,4 @@
-@isTest
+@IsTest
 public with sharing class FeedbackBeforeUpdateHandlerTest {
     
     @TestSetup
@@ -10,7 +10,7 @@ public with sharing class FeedbackBeforeUpdateHandlerTest {
         update c;
     }
 
-    @isTest
+    @IsTest
     static void testFeedbackSubmission(){
 
         Case c = [SELECT Id, Status FROM Case LIMIT 1];
