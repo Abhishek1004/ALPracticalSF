@@ -1,0 +1,15 @@
+<template>
+    <lightning-card title = "Feedback Search on Case">
+        <div class = "slds-p-horizontal_medium">
+            <lightning-input label="Case Number" class="case-number-input"></lightning-input>
+            <lightning-button label = "Search" variant="brand-outline" onclick={handleSearch}></lightning-button>
+        </div>
+        <template if:true={error}>
+            <div class="slds-text-color_error">{error}</div>
+        </template>
+        <template if:true={showTable}>
+            <lightning-datatable key-field="feedbackId" data={data} columns={columns} sorted-by={sortedBy} sorted-direction={sortedDirection} onsort={handleSort} hide-checkbox-column="true" show-row-number-column>
+            </lightning-datatable>
+        </template>
+    </lightning-card>
+</template>
